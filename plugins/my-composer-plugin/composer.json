@@ -1,0 +1,17 @@
+{
+    "name": "kallebysantos/my-composer-plugin",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "MyComposerPlugin\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "kallebysantos"
+        }
+    ],
+    "require": {
+    }
+}
