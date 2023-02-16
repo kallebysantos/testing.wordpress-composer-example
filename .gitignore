@@ -1,0 +1,6 @@
+.env
+.docker
+.vscode
+plugins/*
+
+!plugins/my-composer-plugin
