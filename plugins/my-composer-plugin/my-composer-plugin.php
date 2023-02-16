@@ -8,8 +8,11 @@ Author: Kalleby Santos
 License: MIT
 */
 
+define('PLUGIN_DIR', plugin_dir_path(__FILE__));
+define('PLUGIN_FILE', __FILE__);
+
 // Load the Composer autoload
-require_once(plugin_dir_path(__FILE__) . 'vendor/autoload.php');
+require_once(PLUGIN_DIR . 'vendor/autoload.php');
 
 use MyComposerPlugin\Setup;
 

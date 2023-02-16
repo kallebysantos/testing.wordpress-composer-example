@@ -2,21 +2,27 @@
 
 namespace MyComposerPlugin\Api;
 
-class TestController
+use League\Plates\Engine;
+use MyComposerPlugin\Extensions\ControllerExtension;
+
+class TestController extends \WP_REST_Controller
 {
-  public string $namespace;
-  public string $resource_name;
+  use ControllerExtension;
+
+  private Engine $templates;
 
   // Here initialize our api namespace and resource name.
   public function __construct()
   {
     $this->namespace = 'my-composer-plugin/v1';
-    $this->resource_name = 'test';
+    $this->rest_base = 'test';
+
+    $this->templates = new Engine(PLUGIN_DIR . 'templates/admin');
   }
 
   public function register_routes()
   {
-    register_rest_route($this->namespace, '/' . $this->resource_name, array(
+    register_rest_route($this->namespace, '/' . $this->rest_base, array(
       array(
         'methods' => 'GET',
         'callback' => array($this, 'get_items'),
@@ -31,15 +37,14 @@ class TestController
    */
   public function get_items($request)
   {
-    $data = [
-      ["Author" => "Kalleby"],
-      ["Author" => "Joe"],
-      ["Author" => "Bar"],
+    $authors = [
+      ["name" => "Kalleby"],
+      ["name" => "Joe"],
+      ["name" => "Bar"],
     ];
 
-    var_dump($request);
+    $html = $this->templates->render('dashboard', data: ["authors" => $authors]);
 
-    // Return all of our comment response data.
-    return wp_send_json_success($data);
+    return $this->send_view($html);
   }
 }
