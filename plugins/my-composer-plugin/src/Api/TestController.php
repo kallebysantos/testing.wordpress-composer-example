@@ -26,6 +26,7 @@ class TestController extends \WP_REST_Controller
       array(
         'methods' => 'GET',
         'callback' => array($this, 'get_items'),
+        //     'permission'
       ),
     ));
   }
