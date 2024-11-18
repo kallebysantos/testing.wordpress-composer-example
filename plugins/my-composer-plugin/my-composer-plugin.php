@@ -16,6 +16,7 @@ require_once(PLUGIN_DIR . 'vendor/autoload.php');
 
 use MyComposerPlugin\Setup;
 
+// http://localhost:3333/wp-json/my-composer-plugin/v1
 add_action('rest_api_init', function () {
   Setup::init_rest_controllers();
 });

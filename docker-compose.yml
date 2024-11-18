@@ -1,7 +1,4 @@
-version: '3.9'
-
 volumes:
-  wordpress-volume:
   data-volume:
 
 
@@ -21,7 +18,8 @@ services:
       - ./plugins:/var/www/html/wp-content/plugins:rw
 
   wp-db:
-    image: mysql:5.7
+    image: mariadb:10.4
+    restart: unless-stopped
     container_name: wp-database
     ports:
       - 3306:3306
