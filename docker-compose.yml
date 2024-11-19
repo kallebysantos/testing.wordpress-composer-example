@@ -4,7 +4,7 @@ volumes:
 
 services:
   wp-app:
-    image: wordpress
+    build: .
     container_name: wp-app
     ports:
       - 3333:80

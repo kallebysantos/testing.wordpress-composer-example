@@ -1,9 +1,9 @@
 <?php
 
 namespace MyComposerPlugin\Api;
-
 use League\Plates\Engine;
 use MyComposerPlugin\Extensions\ControllerExtension;
+use Illuminate\Database\Capsule\Manager as Capsule;
 
 class TestController extends \WP_REST_Controller
 {
@@ -18,6 +18,8 @@ class TestController extends \WP_REST_Controller
     $this->rest_base = 'test';
 
     $this->templates = new Engine(PLUGIN_DIR . 'templates/admin');
+
+    error_log("select:".Capsule::connection()->scalar('select 1'));
   }
 
   public function register_routes()
