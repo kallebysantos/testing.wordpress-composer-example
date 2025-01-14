@@ -30,3 +30,14 @@ services:
       MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
     volumes:
       - data-volume:/var/lib/mysql
+
+  phpmyadmin:
+      image: phpmyadmin/phpmyadmin
+      environment:
+        PMA_HOST: wp-db
+        PMA_USER: ${DB_USER}
+        PMA_PASSWORD: ${DB_PASSWORD}
+      ports:
+        - "8000:80"
+      depends_on:
+        - wp-db

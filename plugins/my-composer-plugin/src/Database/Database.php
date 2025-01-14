@@ -2,39 +2,41 @@
 
 namespace MyComposerPlugin\Database;
 
-use Illuminate\Database\Capsule\Manager as Capsule;
+use Doctrine\DBAL\DriverManager;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\ORMSetup;
+
 
 class Database
 {
-    public static function connect()
-    {
-        /**
-         * @global \wpdb $wpdb
-         */
-        global $wpdb;
+    /**
+     * The current globally used instance.
+     *
+     * @var EntityManager
+     */
+    static $instance; 
 
-        $capsule = new Capsule;
+    public static function entity_manager(){
+        return static::$instance;
+    }
 
-        error_log($wpdb->db_server_info());
+    public static function connect()  {
+        $config = ORMSetup::createAttributeMetadataConfiguration(
+            paths: [__DIR__.'/Entities'],
+            isDevMode: true,
+        );
 
-        $capsule->addConnection([
-            'driver' => 'mysql',
+        $connection = DriverManager::getConnection([
+            'driver' => 'pdo_mysql',
             'host' => DB_HOST,
-            'database' => DB_NAME,
-            'username' => DB_USER,
-            'password' => DB_PASSWORD,
-            'charset' => $wpdb->charset ?: 'utf8mb4',
-            'collation' => $wpdb->collate ?: 'utf8mb4_unicode_ci',
-            'prefix' => $wpdb->prefix,
+            'dbname' => DB_NAME,
+            'user' => DB_USER,
+            'password' => DB_PASSWORD
         ]);
 
-        // Make the Capsule instance available globally via static methods
-        $capsule->setAsGlobal();
+        $manager =  new EntityManager($connection, $config);
+        static::$instance = $manager;
 
-        // Setup the Eloquent ORM
-        $capsule->bootEloquent();
-        error_log('db connected');
-
-        error_log($capsule->connection()->scalar('select 1'));
+        return $manager;
     }
 }

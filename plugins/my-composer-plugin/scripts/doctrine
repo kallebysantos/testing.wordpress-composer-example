@@ -1,0 +1,11 @@
+#!/bin/bash
+set -a
+
+SCRIPT=$(readlink -f "$0")
+SCRIPTPATH=$(dirname "$SCRIPT")
+PROJECT_ROOT=$SCRIPTPATH/../../../
+
+. <(cat "$PROJECT_ROOT/.env")
+set +a
+
+php bin/doctrine $@

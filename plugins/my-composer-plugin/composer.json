@@ -1,19 +1,21 @@
 {
-    "name": "kallebysantos/my-composer-plugin",
-    "type": "library",
-    "license": "MIT",
-    "autoload": {
-        "psr-4": {
-            "MyComposerPlugin\\": "src/"
-        }
-    },
-    "authors": [
-        {
-            "name": "kallebysantos"
-        }
-    ],
-    "require": {
-        "league/plates": "^3.5",
-        "illuminate/database": "^11.32"
+  "name": "kallebysantos/my-composer-plugin",
+  "type": "library",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "MyComposerPlugin\\": "src/"
     }
+  },
+  "authors": [
+    {
+      "name": "kallebysantos"
+    }
+  ],
+  "require": {
+    "league/plates": "^3.5",
+    "doctrine/orm": "^3.3",
+    "doctrine/dbal": "^4.2",
+    "symfony/cache": "^7.2"
+  }
 }
